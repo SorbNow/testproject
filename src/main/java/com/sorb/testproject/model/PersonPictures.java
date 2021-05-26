@@ -21,4 +21,8 @@ public class PersonPictures {
 
     @Column
     private String thumbnail;
+
+    @OneToOne
+    @JoinColumn(name = "person_info_id")
+    private PersonInfo personInfo;
 }

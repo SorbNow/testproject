@@ -23,4 +23,8 @@ public class PersonContacts {
     @Column
     private String cell;
 
+    @OneToOne
+    @JoinColumn(name = "person_info_id")
+    private PersonInfo personInfo;
+
 }

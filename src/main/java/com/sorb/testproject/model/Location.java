@@ -36,4 +36,8 @@ public class Location {
 
     @Column
     private String longitude;
+
+    @OneToOne
+    @JoinColumn(name = "person_info_id")
+    private PersonInfo personInfo;
 }

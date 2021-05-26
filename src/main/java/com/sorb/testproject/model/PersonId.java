@@ -19,4 +19,7 @@ public class PersonId {
     @Column
     private String value;
 
+    @OneToOne
+    @JoinColumn(name = "person_info_id")
+    private PersonInfo personInfo;
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class Person {
+public class PersonLogin {
 
     @Id
     @GeneratedValue
@@ -37,5 +37,9 @@ public class Person {
 
     @Column
     private String sha256;
+
+    @OneToOne
+    @JoinColumn(name = "person_info_id")
+    private PersonInfo personInfo;
 
 }

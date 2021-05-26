@@ -20,4 +20,5 @@ public class Timezone {
 
     @Column
     private String description;
+
 }
