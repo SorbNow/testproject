@@ -22,7 +22,8 @@ public class Timezone {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "timezone")
-    private List<PersonInfo> personInfo;
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
 }

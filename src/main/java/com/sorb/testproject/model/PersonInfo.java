@@ -48,10 +48,6 @@ public class PersonInfo {
     @OneToOne(mappedBy = "personInfo")
     private Location location;
 
-    @ManyToOne
-    @JoinColumn(name = "person_info_id")
-    private Timezone timezone;
-
     @OneToOne(mappedBy = "personInfo")
     private PersonContacts personContacts;
 

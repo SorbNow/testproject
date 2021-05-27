@@ -40,4 +40,7 @@ public class Location {
     @OneToOne
     @JoinColumn(name = "person_info_id")
     private PersonInfo personInfo;
+
+    @OneToOne(mappedBy = "location")
+    private Timezone timezone;
 }
