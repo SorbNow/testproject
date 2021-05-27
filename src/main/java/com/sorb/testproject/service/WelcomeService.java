@@ -14,6 +14,6 @@ public class WelcomeService {
     public void launch(String[] args) {
         System.out.println("welcome to project. ");
         System.out.println();
-        personService.importUsersToDatabase(1);
+        personService.importUserToDatabase(2);
     }
 }
