@@ -3,10 +3,11 @@ package com.sorb.testproject.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames={"timezoneOffset", "description"}),
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"timezoneOffset", "description"}),
 })
 @Data
 public class Timezone {
@@ -20,5 +21,8 @@ public class Timezone {
 
     @Column
     private String description;
+
+    @OneToMany(mappedBy = "timezone")
+    private List<PersonInfo> personInfo;
 
 }

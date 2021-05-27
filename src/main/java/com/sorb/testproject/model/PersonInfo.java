@@ -42,21 +42,22 @@ public class PersonInfo {
     @Column
     private String nationality;
 
-    @OneToOne(mappedBy = "person_info")
+    @OneToOne(mappedBy = "personInfo")
     private PersonLogin personLogin;
 
-    @OneToOne(mappedBy = "person_info")
+    @OneToOne(mappedBy = "personInfo")
     private Location location;
 
-    @OneToOne(mappedBy = "person_info")
+    @ManyToOne
+    @JoinColumn(name = "person_info_id")
     private Timezone timezone;
 
-    @OneToOne(mappedBy = "person_info")
+    @OneToOne(mappedBy = "personInfo")
     private PersonContacts personContacts;
 
-    @OneToOne(mappedBy = "person_info")
+    @OneToOne(mappedBy = "personInfo")
     private PersonId personId;
 
-    @OneToOne(mappedBy = "person_info")
+    @OneToOne(mappedBy = "personInfo")
     private PersonPictures personPictures;
 }
