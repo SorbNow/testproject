@@ -1,6 +1,7 @@
 package com.sorb.testproject.service;
 
-import com.sorb.testproject.model.Location;
+import com.sorb.testproject.model.*;
+import com.sorb.testproject.repository.PersonInfoRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,20 +14,36 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class PersonService {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    @Autowired
-    private LocationService locationService;
+    private final LocationService locationService;
+
+    private final PersonIdService personIdService;
+
+    private final PersonContactsService personContactsService;
+
+    private final PersonPicturesService personPicturesService;
+
+    private final PersonLoginService personLoginService;
+
+    private final PersonInfoRepository personInfoRepository;
 
     @Value("${externalapi.url}")
     private String apiUrl;
 
+    public PersonService(RestTemplate restTemplate, LocationService locationService, PersonIdService personIdService, PersonContactsService personContactsService, PersonPicturesService personPicturesService, PersonLoginService personLoginService, PersonInfoRepository personInfoRepository) {
+        this.restTemplate = restTemplate;
+        this.locationService = locationService;
+        this.personIdService = personIdService;
+        this.personContactsService = personContactsService;
+        this.personPicturesService = personPicturesService;
+        this.personLoginService = personLoginService;
+        this.personInfoRepository = personInfoRepository;
+    }
+
     public void importUserToDatabase(int count) {
         String URL = apiUrl + "/api/?results=" + count;
-        System.out.println(URL);
         String result = restTemplate.getForObject(URL, String.class);
-        System.out.println(result);
         JSONObject object = null;
         try {
             object = (JSONObject) new JSONParser().parse(result);
@@ -34,13 +51,22 @@ public class PersonService {
             JSONArray array = (JSONArray) object.get("results");
             for (Object o : array) {
                 JSONObject person = (JSONObject) o;
-                String gender = (String) person.get("gender");
-                JSONObject locationObject = (JSONObject) person.get("location");
 
+                JSONObject locationObject = (JSONObject) person.get("location");
                 Location location = locationService.saveAndGetLocation(locationObject);
 
+                JSONObject idObject = (JSONObject) person.get("id");
+                PersonId personId = personIdService.saveAndGetPersonId(idObject);
+
+                PersonContacts personContacts =personContactsService.saveAndGetPersonContacts(person);
+
+                JSONObject personPicturesObject = (JSONObject) person.get("picture");
+                PersonPictures personPictures = personPicturesService.saveAndGetPersonPictures(personPicturesObject);
+
+                JSONObject personLoginObject = (JSONObject) person.get("login");
+                PersonLogin personLogin = personLoginService.saveAndGetPersonLogin(personLoginObject);
+
                 System.out.println(location);
-                System.out.println(gender);
             }
         } catch (ParseException e) {
             e.printStackTrace();
