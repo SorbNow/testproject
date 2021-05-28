@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Location {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -38,9 +38,5 @@ public class Location {
     private String longitude;
 
     @OneToOne
-    @JoinColumn(name = "person_info_id")
-    private PersonInfo personInfo;
-
-    @OneToOne(mappedBy = "location")
     private Timezone timezone;
 }

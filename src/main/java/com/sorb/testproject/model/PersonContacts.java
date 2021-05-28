@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class PersonContacts {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -23,8 +23,5 @@ public class PersonContacts {
     @Column
     private String cell;
 
-    @OneToOne
-    @JoinColumn(name = "person_info_id")
-    private PersonInfo personInfo;
 
 }

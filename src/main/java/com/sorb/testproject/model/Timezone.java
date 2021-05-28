@@ -6,14 +6,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = {
+@Table/*(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"timezoneOffset", "description"}),
-})
+})*/
 @Data
 public class Timezone {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -22,8 +22,5 @@ public class Timezone {
     @Column
     private String description;
 
-    @OneToOne
-    @JoinColumn(name = "location_id")
-    private Location location;
 
 }

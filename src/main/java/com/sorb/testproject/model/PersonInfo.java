@@ -17,7 +17,7 @@ import java.time.temporal.ChronoUnit;
 public class PersonInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -50,19 +50,19 @@ public class PersonInfo {
     @Column
     private String nationality;
 
-    @OneToOne(mappedBy = "personInfo")
+    @OneToOne//(mappedBy = "personInfo")
     private PersonLogin personLogin;
 
-    @OneToOne(mappedBy = "personInfo")
+    @OneToOne//(mappedBy = "personInfo")
     private Location location;
 
-    @OneToOne(mappedBy = "personInfo")
+    @OneToOne//(mappedBy = "personInfo")
     private PersonContacts personContacts;
 
-    @OneToOne(mappedBy = "personInfo")
+    @OneToOne//(mappedBy = "personInfo")
     private PersonId personId;
 
-    @OneToOne(mappedBy = "personInfo")
+    @OneToOne//(mappedBy = "personInfo")
     private PersonPictures personPictures;
 
     public long getAge() {

@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class PersonLogin {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -37,9 +37,5 @@ public class PersonLogin {
 
     @Column
     private String sha256;
-
-    @OneToOne
-    @JoinColumn(name = "person_info_id")
-    private PersonInfo personInfo;
 
 }

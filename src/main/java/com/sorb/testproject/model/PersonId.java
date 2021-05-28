@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class PersonId {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -18,8 +18,4 @@ public class PersonId {
 
     @Column
     private String value;
-
-    @OneToOne
-    @JoinColumn(name = "person_info_id")
-    private PersonInfo personInfo;
 }

@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class PersonPictures {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -22,7 +22,4 @@ public class PersonPictures {
     @Column
     private String thumbnail;
 
-    @OneToOne
-    @JoinColumn(name = "person_info_id")
-    private PersonInfo personInfo;
 }
