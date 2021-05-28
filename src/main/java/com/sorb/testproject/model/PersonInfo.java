@@ -5,7 +5,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table
@@ -37,7 +39,13 @@ public class PersonInfo {
     private LocalDateTime dateOfBirth;
 
     @Column
+    private long age;
+
+    @Column
     private LocalDateTime registrationDate;
+
+    @Column
+    private long registeredYears;
 
     @Column
     private String nationality;
@@ -56,4 +64,12 @@ public class PersonInfo {
 
     @OneToOne(mappedBy = "personInfo")
     private PersonPictures personPictures;
+
+    public long getAge() {
+        return ChronoUnit.YEARS.between(this.dateOfBirth,LocalDateTime.now());
+    }
+
+    public long getRegisteredYears() {
+        return ChronoUnit.YEARS.between(this.registrationDate,LocalDateTime.now());
+    }
 }
