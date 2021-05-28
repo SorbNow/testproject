@@ -1,26 +1,22 @@
 package com.sorb.testproject.service;
 
 import com.sorb.testproject.model.Location;
-import com.sorb.testproject.model.Timezone;
 import com.sorb.testproject.repository.LocationRepository;
-import com.sorb.testproject.repository.TimezoneRepository;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LocationServiceImpl implements LocationService {
+public class LocationServiceImpl implements LocationService, ExportParams<Location> {
 
     private final LocationRepository locationRepository;
+    private final TimezoneService timezoneService;
 
-    private final TimezoneRepository timezoneRepository;
-
-    public LocationServiceImpl(LocationRepository locationRepository, TimezoneRepository timezoneRepository) {
+    public LocationServiceImpl(LocationRepository locationRepository, TimezoneService timezoneService) {
         this.locationRepository = locationRepository;
-        this.timezoneRepository = timezoneRepository;
+        this.timezoneService = timezoneService;
     }
 
     @Override
@@ -28,8 +24,8 @@ public class LocationServiceImpl implements LocationService {
         Map<String, String> street = getStreet((JSONObject) object.get("street"));
         Map<String, String> coordinates = getCoordinates((JSONObject) object.get("coordinates"));
         Location location = new Location();
-        location.setCity((String)object.get("city"));
-        location.setCountry((String)object.get("country"));
+        location.setCity((String) object.get("city"));
+        location.setCountry((String) object.get("country"));
 
         location.setLatitude(coordinates.get("latitude"));
         location.setLongitude(coordinates.get("longitude"));
@@ -38,32 +34,37 @@ public class LocationServiceImpl implements LocationService {
         location.setStreet(street.get("streetName"));
 
         location.setPostcode(object.get("postcode").toString());
-        location.setState((String)object.get("state"));
+        location.setState((String) object.get("state"));
 
-        location.setTimezone(saveAndGetTimezone((JSONObject) object.get("timezone")));
+        location.setTimezone(timezoneService.saveAndGetTimezone((JSONObject) object.get("timezone")));
         return locationRepository.save(location);
     }
 
-    @Override
-    public Timezone saveAndGetTimezone(JSONObject object) {
-        Timezone timezone = new Timezone();
-        timezone.setDescription((String)object.get("description"));
-        timezone.setTimezoneOffset((String)object.get("offset"));
-        return timezoneRepository.save(timezone);
-    }
-
-    private Map<String,String> getStreet(JSONObject object) {
-        Map<String,String> result = new HashMap<>();
+    private Map<String, String> getStreet(JSONObject object) {
+        Map<String, String> result = new HashMap<>();
         result.put("number", object.get("number").toString());
         result.put("streetName", (String) object.get("name"));
 
         return result;
     }
-    private Map<String,String> getCoordinates(JSONObject object) {
-        Map<String,String> result = new HashMap<>();
+
+    private Map<String, String> getCoordinates(JSONObject object) {
+        Map<String, String> result = new HashMap<>();
         result.put("latitude", object.get("latitude").toString());
         result.put("longitude", object.get("longitude").toString());
 
         return result;
+    }
+
+    @Override
+    public String[] getHeaders() {
+        return new String[]{"country", "state", "city", "street", "number", "postcode", "latitude", "longitude"};
+    }
+
+    @Override
+    public String[] getValues(Location location) {
+        return new String[]{location.getCountry(), location.getState(), location.getCity(),
+                location.getStreet(), location.getNumber(), location.getPostcode(),
+                location.getLatitude(), location.getLongitude()};
     }
 }

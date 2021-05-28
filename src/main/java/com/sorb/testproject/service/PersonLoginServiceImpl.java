@@ -3,11 +3,10 @@ package com.sorb.testproject.service;
 import com.sorb.testproject.model.PersonLogin;
 import com.sorb.testproject.repository.PersonLoginRepository;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonLoginServiceImpl implements PersonLoginService {
+public class PersonLoginServiceImpl implements PersonLoginService, ExportParams<PersonLogin> {
 
     private final PersonLoginRepository personLoginRepository;
 
@@ -26,5 +25,16 @@ public class PersonLoginServiceImpl implements PersonLoginService {
         personLogin.setSha1(object.get("sha1").toString());
         personLogin.setSha256(object.get("sha256").toString());
         return personLoginRepository.save(personLogin);
+    }
+
+    @Override
+    public String[] getHeaders() {
+        return new String[]{"uuid", "username", "password", "salt", "md5", "sha1", "sha256"};
+    }
+
+    @Override
+    public String[] getValues(PersonLogin personLogin) {
+        return new String[]{personLogin.getUuid(), personLogin.getUserName(), personLogin.getPassword(),
+                personLogin.getSalt(), personLogin.getMd5(), personLogin.getSha1(), personLogin.getSha256()};
     }
 }

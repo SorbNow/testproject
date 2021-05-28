@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class PersonInfoServiceImpl implements PersonInfoService {
+public class PersonInfoServiceImpl implements PersonInfoService, ExportParams<PersonInfo> {
 
     @Autowired
     private PersonInfoRepository personInfoRepository;
@@ -58,8 +58,23 @@ public class PersonInfoServiceImpl implements PersonInfoService {
 
     private LocalDateTime getDate(JSONObject object) {
 
-        ZoneId z = ZoneId.systemDefault() ;
-        LocalDateTime result = LocalDateTime.ofInstant(Instant.parse(object.get("date").toString()),z);
+        ZoneId z = ZoneId.systemDefault();
+        LocalDateTime result = LocalDateTime.ofInstant(Instant.parse(object.get("date").toString()), z);
         return result;
+    }
+
+    @Override
+    public String[] getHeaders() {
+        return new String[]{"id", "gender", "title", "first name", "lastName", "email", "dob",
+                "age", "registration date", "years registered", "nationality"};
+    }
+
+    @Override
+    public String[] getValues(PersonInfo personInfo) {
+        return new String[]{personInfo.getGender(), personInfo.getTitle(),
+                personInfo.getFirstName(), personInfo.getLastName(), personInfo.getEmail(),
+                personInfo.getDateOfBirth().toString(), String.valueOf(personInfo.getAge()),
+                personInfo.getRegistrationDate().toString(), String.valueOf(personInfo.getRegisteredYears()),
+                personInfo.getNationality()};
     }
 }
