@@ -4,16 +4,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WelcomeService {
-    private final PersonService personService;
+    private final PersonServiceImpl personServiceImpl;
 
-    public WelcomeService(PersonService personService) {
-        this.personService = personService;
+    public WelcomeService(PersonServiceImpl personServiceImpl) {
+        this.personServiceImpl = personServiceImpl;
     }
 
 
     public void launch(String[] args) {
         System.out.println("welcome to project. ");
         System.out.println();
-        personService.importUserToDatabase(2);
+        personServiceImpl.importUserToDatabase(2);
     }
 }
