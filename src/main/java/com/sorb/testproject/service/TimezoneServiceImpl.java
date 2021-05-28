@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TimezoneServiceImpl implements TimezoneService, ExportParams<Timezone> {
+public class TimezoneServiceImpl implements TimezoneService {
     private final TimezoneRepository timezoneRepository;
 
     public TimezoneServiceImpl(TimezoneRepository timezoneRepository) {

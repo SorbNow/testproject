@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonPicturesServiceImpl implements PersonPicturesService, ExportParams<PersonPictures> {
+public class PersonPicturesServiceImpl implements PersonPicturesService {
 
     private final PersonPicturesRepository personPicturesRepository;
 

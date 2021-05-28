@@ -10,10 +10,11 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
-public class PersonInfoServiceImpl implements PersonInfoService, ExportParams<PersonInfo> {
+public class PersonInfoServiceImpl implements PersonInfoService {
 
     @Autowired
     private PersonInfoRepository personInfoRepository;
@@ -45,7 +46,14 @@ public class PersonInfoServiceImpl implements PersonInfoService, ExportParams<Pe
         System.out.println("info:");
         System.out.println(personInfo);
 
+        System.out.println("saving person info: " + personInfo);
+
         return personInfoRepository.save(personInfo);
+    }
+
+    @Override
+    public List<PersonInfo> getAll() {
+        return personInfoRepository.findAll();
     }
 
     private Map<String, String> getName(JSONObject object) {
@@ -71,7 +79,7 @@ public class PersonInfoServiceImpl implements PersonInfoService, ExportParams<Pe
 
     @Override
     public String[] getValues(PersonInfo personInfo) {
-        return new String[]{personInfo.getGender(), personInfo.getTitle(),
+        return new String[]{String.valueOf(personInfo.getId()),personInfo.getGender(), personInfo.getTitle(),
                 personInfo.getFirstName(), personInfo.getLastName(), personInfo.getEmail(),
                 personInfo.getDateOfBirth().toString(), String.valueOf(personInfo.getAge()),
                 personInfo.getRegistrationDate().toString(), String.valueOf(personInfo.getRegisteredYears()),

@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonIdServiceImpl implements PersonIdService, ExportParams<PersonId> {
+public class PersonIdServiceImpl implements PersonIdService {
 
     private final PersonIdRepository personIdRepository;
 
@@ -17,8 +17,8 @@ public class PersonIdServiceImpl implements PersonIdService, ExportParams<Person
     @Override
     public PersonId saveAndGetPersonId(JSONObject object) {
         PersonId personId = new PersonId();
-        personId.setName(object.get("name").toString());
-        personId.setValue(object.get("value").toString());
+        personId.setName((String)object.get("name"));
+        personId.setValue((String) object.get("value"));
         return personIdRepository.save(personId);
     }
 

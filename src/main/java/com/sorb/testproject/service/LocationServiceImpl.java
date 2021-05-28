@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LocationServiceImpl implements LocationService, ExportParams<Location> {
+public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
     private final TimezoneService timezoneService;

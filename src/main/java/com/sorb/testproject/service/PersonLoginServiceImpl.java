@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonLoginServiceImpl implements PersonLoginService, ExportParams<PersonLogin> {
+public class PersonLoginServiceImpl implements PersonLoginService {
 
     private final PersonLoginRepository personLoginRepository;
 

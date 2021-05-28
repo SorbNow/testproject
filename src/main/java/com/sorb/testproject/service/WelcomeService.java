@@ -1,6 +1,10 @@
 package com.sorb.testproject.service;
 
+import com.opencsv.CSVWriter;
 import org.springframework.stereotype.Service;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 @Service
 public class WelcomeService {
@@ -14,6 +18,12 @@ public class WelcomeService {
     public void launch(String[] args) {
         System.out.println("welcome to project. ");
         System.out.println();
-        personServiceImpl.importUserToDatabase(2);
+        personServiceImpl.importUserToDatabase(5);
+
+        try (CSVWriter writer = new CSVWriter(new FileWriter("test.csv"))) {
+            writer.writeAll(personServiceImpl.createCSVDataList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
