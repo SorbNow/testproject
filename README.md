@@ -1,7 +1,7 @@
 start program command:
 -
 
-testproject-0.0.1-SNAPSHOT.jar
+java -jar testproject-0.0.1-SNAPSHOT.jar
 
 <b>Model(Entities)</b>:
 -
