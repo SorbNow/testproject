@@ -3,7 +3,6 @@ package com.sorb.testproject.service;
 import com.sorb.testproject.model.*;
 import com.sorb.testproject.repository.PersonInfoRepository;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -77,7 +76,7 @@ public class PersonInfoServiceImpl implements PersonInfoService {
 
     @Override
     public String[] getValues(PersonInfo personInfo) {
-        return new String[]{String.valueOf(personInfo.getId()),personInfo.getGender(), personInfo.getTitle(),
+        return new String[]{String.valueOf(personInfo.getId()), personInfo.getGender(), personInfo.getTitle(),
                 personInfo.getFirstName(), personInfo.getLastName(), personInfo.getEmail(),
                 personInfo.getDateOfBirth().toString(), String.valueOf(personInfo.getAge()),
                 personInfo.getRegistrationDate().toString(), String.valueOf(personInfo.getRegisteredYears()),

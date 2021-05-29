@@ -17,7 +17,7 @@ public class PersonIdServiceImpl implements PersonIdService {
     @Override
     public PersonId saveAndGetPersonId(JSONObject object) {
         PersonId personId = new PersonId();
-        personId.setName((String)object.get("name"));
+        personId.setName((String) object.get("name"));
         personId.setValue((String) object.get("value"));
         return personIdRepository.save(personId);
     }
@@ -29,6 +29,6 @@ public class PersonIdServiceImpl implements PersonIdService {
 
     @Override
     public String[] getValues(PersonId personId) {
-        return new String[]{personId.getName(),personId.getValue()};
+        return new String[]{personId.getName(), personId.getValue()};
     }
 }

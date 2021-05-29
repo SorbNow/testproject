@@ -108,7 +108,6 @@ public class PersonServiceImpl implements PersonService {
         b = personPicturesService.getHeaders();
         headers = combine(headers, b);
         return headers;
-
     }
 
     private String[] getValues(PersonInfo personInfo) {
@@ -127,7 +126,6 @@ public class PersonServiceImpl implements PersonService {
         b = personPicturesService.getValues(personInfo.getPersonPictures());
         headers = combine(headers, b);
         return headers;
-
     }
 
     public static String[] combine(String[] a, String[] b) {

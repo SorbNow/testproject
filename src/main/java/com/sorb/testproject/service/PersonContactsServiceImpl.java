@@ -29,6 +29,6 @@ public class PersonContactsServiceImpl implements PersonContactsService {
 
     @Override
     public String[] getValues(PersonContacts personContacts) {
-        return new String[]{personContacts.getPhone(),personContacts.getCell()};
+        return new String[]{personContacts.getPhone(), personContacts.getCell()};
     }
 }
