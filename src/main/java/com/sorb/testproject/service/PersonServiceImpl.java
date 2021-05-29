@@ -53,7 +53,6 @@ public class PersonServiceImpl implements PersonService {
         JSONObject object;
         try {
             object = (JSONObject) new JSONParser().parse(result);
-//            result = (String) object.get("result");
             JSONArray array = (JSONArray) object.get("results");
             for (Object o : array) {
                 JSONObject person = (JSONObject) o;
@@ -74,8 +73,6 @@ public class PersonServiceImpl implements PersonService {
 
                 PersonInfo personInfo = personInfoService.saveAndGetPersonInfo(person, personId, location,
                         personContacts, personLogin, personPictures);
-
-                System.out.println(personInfo);
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -84,12 +81,13 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<String[]> createCSVDataList() {
+    public List<String[]> createCSVDataList(int count) {
         List<String[]> result = new ArrayList<>();
         result.add(getAllHeaders());
-        for (PersonInfo pInfo: personInfoService.getAll())
-        {
-            result.add(getValues(pInfo));
+        List<PersonInfo> personInfoList = personInfoService.getAll();
+        if (personInfoList.size()<count) {count=personInfoList.size();}
+        for (int i = 0; i < count; i++) {
+            result.add(getValues(personInfoList.get(i)));
         }
         return result;
     }
@@ -112,6 +110,7 @@ public class PersonServiceImpl implements PersonService {
         return headers;
 
     }
+
     private String[] getValues(PersonInfo personInfo) {
         String[] headers = personInfoService.getValues(personInfo);
         String[] b;

@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface PersonService {
     void importUserToDatabase(int count);
-    List<String[]> createCSVDataList();
+    List<String[]> createCSVDataList(int count);
 }

@@ -16,8 +16,11 @@ import java.util.Map;
 @Service
 public class PersonInfoServiceImpl implements PersonInfoService {
 
-    @Autowired
-    private PersonInfoRepository personInfoRepository;
+    private final PersonInfoRepository personInfoRepository;
+
+    public PersonInfoServiceImpl(PersonInfoRepository personInfoRepository) {
+        this.personInfoRepository = personInfoRepository;
+    }
 
     @Override
     public PersonInfo saveAndGetPersonInfo(JSONObject object, PersonId personId, Location location,
@@ -42,11 +45,6 @@ public class PersonInfoServiceImpl implements PersonInfoService {
 
         personInfo.setDateOfBirth(getDate((JSONObject) object.get("dob")));
         personInfo.setRegistrationDate(getDate((JSONObject) object.get("registered")));
-
-        System.out.println("info:");
-        System.out.println(personInfo);
-
-        System.out.println("saving person info: " + personInfo);
 
         return personInfoRepository.save(personInfo);
     }
